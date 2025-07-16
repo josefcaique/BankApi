@@ -1,4 +1,4 @@
-package com.josef.digitalBank.bankapi.dto;
+package com.josef.digitalBank.bankapi.dto.clientDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class ClientDTO implements Serializable {
+public class ClientResponseDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -20,9 +20,9 @@ public class ClientDTO implements Serializable {
     @JsonFormat(pattern = "dd/mm/yyyy")
     private LocalDate birthdate;
 
-    public ClientDTO(){}
+    public ClientResponseDTO(){}
 
-    public ClientDTO(Long id, String name, String lastName, String cpf, String email, LocalDate birthdate) {
+    public ClientResponseDTO(Long id, String name, String lastName, String cpf, String email, LocalDate birthdate) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
