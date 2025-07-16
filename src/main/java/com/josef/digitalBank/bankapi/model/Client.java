@@ -1,21 +1,27 @@
 package com.josef.digitalBank.bankapi.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
+@Entity
 public class Client implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String lastName;
+    private String cpf;
     private String email;
     private String password;
     private LocalDate birthdate;
@@ -45,6 +51,14 @@ public class Client implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
