@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.Objects;
 
 public class ClientResponseDTO implements Serializable {
 
@@ -16,20 +17,9 @@ public class ClientResponseDTO implements Serializable {
     private String lastName;
     private String cpf;
     private String email;
-
-    @JsonFormat(pattern = "dd/mm/yyyy")
-    private LocalDate birthdate;
+    private Date birthdate;
 
     public ClientResponseDTO(){}
-
-    public ClientResponseDTO(Long id, String name, String lastName, String cpf, String email, LocalDate birthdate) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.cpf = cpf;
-        this.email = email;
-        this.birthdate = birthdate;
-    }
 
     public Long getId() {
         return id;
@@ -71,11 +61,35 @@ public class ClientResponseDTO implements Serializable {
         this.email = email;
     }
 
-    public LocalDate getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClientResponseDTO that = (ClientResponseDTO) o;
+        return Objects.equals(id,
+                that.id) && Objects.equals(name,
+                that.name) && Objects.equals(lastName,
+                that.lastName) && Objects.equals(cpf,
+                that.cpf) && Objects.equals(email,
+                that.email) && Objects.equals(birthdate,
+                that.birthdate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id,
+                name,
+                lastName,
+                cpf,
+                email,
+                birthdate);
     }
 }

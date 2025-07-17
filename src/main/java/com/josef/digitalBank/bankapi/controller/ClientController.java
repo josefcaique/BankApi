@@ -1,15 +1,17 @@
-package com.josef.digitalBank.bankapi;
+package com.josef.digitalBank.bankapi.controller;
 
+import com.josef.digitalBank.bankapi.dto.clientDTO.ClientRequestDTO;
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientResponseDTO;
-import com.josef.digitalBank.bankapi.model.Client;
 import com.josef.digitalBank.bankapi.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping("api/client")
-public class controller {
+public class ClientController {
 
     @Autowired
     ClientService service;
@@ -19,8 +21,13 @@ public class controller {
         return service.findById(id);
     }
 
+    @GetMapping
+    public List<ClientResponseDTO> findAll(){
+        return service.findAll();
+    }
+
     @PostMapping()
-    public ClientResponseDTO create(@RequestBody Client client) {
+    public ClientResponseDTO create(@RequestBody ClientRequestDTO client) {
         return service.create(client);
     }
 }
