@@ -33,4 +33,5 @@ public class ClientService {
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }
+
 }
