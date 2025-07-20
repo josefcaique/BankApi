@@ -36,4 +36,17 @@ public class ClientService {
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }
 
+    public ClientResponseDTO update(ClientResponseDTO client) {
+        ClientResponseDTO entity = findById(client.getId());
+
+        entity.setName(client.getName());
+        entity.setLastName(client.getLastName());
+        entity.setEmail(client.getEmail());
+        entity.setCpf(client.getCpf());
+        entity.setBirthdate(client.getBirthdate());
+        var updatedClient = repo.save(ObjectMapper.parseObject(client, Client.class));
+        return ObjectMapper.parseObject(updatedClient, ClientResponseDTO.class);
+
+    }
+
 }
