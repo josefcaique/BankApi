@@ -36,8 +36,8 @@ public class ClientService {
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }
 
-    public ClientResponseDTO update(ClientResponseDTO client) {
-        ClientResponseDTO entity = findById(client.getId());
+    public ClientResponseDTO update(Long id, ClientRequestDTO client) {
+        ClientResponseDTO entity = findById(id);
 
         entity.setName(client.getName());
         entity.setLastName(client.getLastName());

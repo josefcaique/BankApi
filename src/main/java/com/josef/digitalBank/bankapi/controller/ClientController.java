@@ -30,4 +30,9 @@ public class ClientController {
     public ClientResponseDTO create(@RequestBody ClientRequestDTO client) {
         return service.create(client);
     }
+
+    @PutMapping(value = "/{id}")
+    public ClientResponseDTO update(@PathVariable("id") Long id, @RequestBody ClientRequestDTO client) {
+        return service.update(id, client);
+    }
 }
