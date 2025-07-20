@@ -9,6 +9,7 @@ import com.josef.digitalBank.bankapi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class ClientService {
     }
 
     public ClientResponseDTO create(ClientRequestDTO client) {
+        System.out.println(client.getBirthdate());
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }

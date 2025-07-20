@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -24,7 +24,7 @@ public class Client implements Serializable {
     private String cpf;
     private String email;
     private String password;
-    private Date birthdate;
+    private LocalDate birthdate;
 
 
     public Client(){}
@@ -77,11 +77,11 @@ public class Client implements Serializable {
         this.password = password;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

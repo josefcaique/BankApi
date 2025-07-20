@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class ClientResponseDTO implements Serializable {
@@ -17,7 +17,9 @@ public class ClientResponseDTO implements Serializable {
     private String lastName;
     private String cpf;
     private String email;
-    private Date birthdate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate birthdate;
 
     public ClientResponseDTO(){}
 
@@ -61,11 +63,11 @@ public class ClientResponseDTO implements Serializable {
         this.email = email;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
