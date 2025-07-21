@@ -31,7 +31,6 @@ public class ClientService {
     }
 
     public ClientResponseDTO create(ClientRequestDTO client) {
-        System.out.println(client.getBirthdate());
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }
