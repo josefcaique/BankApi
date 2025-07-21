@@ -35,4 +35,9 @@ public class ClientController {
     public ClientResponseDTO update(@PathVariable("id") Long id, @RequestBody ClientRequestDTO client) {
         return service.update(id, client);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
 }
