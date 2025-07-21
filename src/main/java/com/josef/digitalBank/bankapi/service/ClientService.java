@@ -39,14 +39,19 @@ public class ClientService {
     public ClientResponseDTO update(Long id, ClientRequestDTO client) {
         ClientResponseDTO entity = findById(id);
 
+        System.out.println(entity.getId());
         entity.setName(client.getName());
         entity.setLastName(client.getLastName());
         entity.setEmail(client.getEmail());
         entity.setCpf(client.getCpf());
         entity.setBirthdate(client.getBirthdate());
-        var updatedClient = repo.save(ObjectMapper.parseObject(client, Client.class));
+        var updatedClient = repo.save(ObjectMapper.parseObject(entity, Client.class));
         return ObjectMapper.parseObject(updatedClient, ClientResponseDTO.class);
+    }
 
+    public void delete(Long id) {
+        var entity = findById(id);
+        repo.delete(ObjectMapper.parseObject(entity, Client.class));
     }
 
 }
