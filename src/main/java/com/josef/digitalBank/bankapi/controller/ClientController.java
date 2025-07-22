@@ -3,6 +3,8 @@ package com.josef.digitalBank.bankapi.controller;
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientRequestDTO;
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientResponseDTO;
 import com.josef.digitalBank.bankapi.service.ClientService;
+import com.josef.digitalBank.bankapi.validation.annotations.ValidCPF;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,7 @@ public class ClientController {
     }
 
     @PostMapping()
-    public ClientResponseDTO create(@RequestBody ClientRequestDTO client) {
+    public ClientResponseDTO create(@Valid @RequestBody ClientRequestDTO client) {
         return service.create(client);
     }
 

@@ -4,6 +4,10 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.hibernate.Length;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
     @Override
@@ -15,18 +19,26 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
     public boolean isValid(String cpf, ConstraintValidatorContext constraintValidatorContext) {
         cpf = cpf.replaceAll("[^\\d]", "");
         if (cpf.trim().length() != 11 ) return false;
-        String subCPF = cpf.substring(0, 9);
-        char firstDigit = cpf.charAt(9);
-        char secondDigit = cpf.charAt(10);
-        int counter = 0;
+        List<Character> subCpfList = new ArrayList<>();
+
         int value = 0;
-        System.out.println(subCPF);
-        for (int i = 0; i < subCPF.length(); i++) {
-            int n = (int) subCPF.charAt(i);
-            System.out.println(n);
-            value = n  * (10 - i);
-            System.out.println(value);
+
+        for (int i=0; i<subCpfList.size(); i++) {
+            char n = subCpfList.get(i);
+            value += Character.getNumericValue(n) * (10-i);
         }
+        int rest = value % 11;
+        System.out.println(rest);
+        if (rest < 2) {
+            int generatedValue = 0;
+        } else {
+            int generatedValue = 11 - rest;
+        }
+
+
+
+
+
         return true;
     }
 }
