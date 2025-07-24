@@ -2,12 +2,8 @@ package com.josef.digitalBank.bankapi.validation.validators;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidCPF;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.hibernate.Length;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
