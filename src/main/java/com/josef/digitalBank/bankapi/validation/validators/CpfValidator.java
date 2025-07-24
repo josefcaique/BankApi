@@ -27,10 +27,7 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
         subCpfList.add((char) (digit + '0'));
         int digit2 = getNewDigit(subCpfList);
         subCpfList.add((char) (digit2 + '0'));
-
         String newString = subCpfList.stream().map(String::valueOf).collect(Collectors.joining());
-        System.out.println(newString);
-        System.out.println(cpf);
         return newString.equals(cpf);
     }
 
@@ -41,14 +38,11 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
             char n = subCpfList.get(i);
             value += Character.getNumericValue(n) * (subCpfList.size()+1-i);
         }
-        System.out.println(value);
         int rest = value % 11;
-        System.out.println(rest);
         int generatedDigit = 0;
         if (rest > 2) {
             generatedDigit = 11 - rest;
         }
-        System.out.println(generatedDigit);
         return generatedDigit;
     }
 }
