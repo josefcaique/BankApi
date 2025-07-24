@@ -1,6 +1,6 @@
 package com.josef.digitalBank.bankapi.validation.annotations;
 
-import com.josef.digitalBank.bankapi.validation.validators.CpfValidator;
+import com.josef.digitalBank.bankapi.validation.validators.EmailValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = CpfValidator.class)
+@Constraint(validatedBy = EmailValidator.class)
 public @interface ValidEmail {
     String message() default "Invalid Email";
     Class<?>[] groups() default {};
