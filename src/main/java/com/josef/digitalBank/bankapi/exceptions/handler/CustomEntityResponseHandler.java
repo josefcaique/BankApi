@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @ControllerAdvice
-public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler {
+public class CustomEntityResponseHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleNotFoundException(Exception e, WebRequest request) {
@@ -36,7 +36,7 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         Map<String, String> errors = new HashMap<>();
 
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+            errors.put(fieldError.getField(), fieldError.getField() + " is invalid!");
         }
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);

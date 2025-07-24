@@ -13,3 +13,5 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
+server:
+  port: 8081
