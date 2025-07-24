@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CpfValidator.class)
-public @interface ValidCPF {
-    String message() default "Invalid CPF";
+public @interface ValidEmail {
+    String message() default "Invalid Email";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
