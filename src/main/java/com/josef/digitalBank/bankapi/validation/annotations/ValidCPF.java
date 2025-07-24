@@ -9,9 +9,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ ElementType.FIELD }) // Pode ser usada em atributos
-@Retention(RetentionPolicy.RUNTIME) // Disponível em tempo de execução
-@Constraint(validatedBy = CpfValidator.class) // Define quem vai validar
+@Target({ ElementType.FIELD })
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = CpfValidator.class)
 public @interface ValidCPF {
     String message() default "CPF inválido";
     Class<?>[] groups() default {};
