@@ -2,6 +2,7 @@ package com.josef.digitalBank.bankapi.dto.clientDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidCPF;
+import com.josef.digitalBank.bankapi.validation.annotations.ValidEmail;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,6 +19,8 @@ public class ClientRequestDTO implements Serializable {
 
     @ValidCPF
     private String cpf;
+
+    @ValidEmail
     private String email;
     private String password;
 
