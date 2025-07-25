@@ -41,4 +41,15 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
         }
         return generatedDigit;
     }
+
+    public boolean numberEquals(String cpf) {
+        String num = null;
+        for (char n : cpf.toCharArray()) {
+            if (num == null) {
+                num = n+"";
+            }
+            if (n+"" != num) return false;
+        }
+        return true;
+    }
 }
