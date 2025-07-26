@@ -6,6 +6,8 @@ import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
 import com.josef.digitalBank.bankapi.mapper.ObjectMapper;
 import com.josef.digitalBank.bankapi.model.Client;
 import com.josef.digitalBank.bankapi.repository.ClientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,15 @@ import java.util.List;
 @Service
 public class ClientService {
 
+    final Logger logger = LoggerFactory.getLogger(ClientService.class);
+
     @Autowired
     ClientRepository repo;
 
     public ClientResponseDTO findById(Long id) {
+
+        logger.info("Finding a client by Id");
+
         var entity =  repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this Id!"));
 
@@ -26,20 +33,27 @@ public class ClientService {
     }
 
     public List<ClientResponseDTO> findAll() {
+
+        logger.info("Finding all clients");
+
         List<Client> entities = repo.findAll();
         return ObjectMapper.parseListObjects(entities, ClientResponseDTO.class);
     }
 
     public ClientResponseDTO create(ClientRequestDTO client) {
+
+        logger.info("Crating a new client");
+
         client.setCpf(client.getCpf().replaceAll("[^\\d]", ""));
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }
 
     public ClientResponseDTO update(Long id, ClientRequestDTO client) {
-        ClientResponseDTO entity = findById(id);
 
-        System.out.println(entity.getId());
+        logger.info("Updating a client");
+
+        ClientResponseDTO entity = findById(id);
         entity.setName(client.getName());
         entity.setLastName(client.getLastName());
         entity.setEmail(client.getEmail());
@@ -50,6 +64,9 @@ public class ClientService {
     }
 
     public void delete(Long id) {
+
+        logger.info("Deleting a client");
+
         var entity = findById(id);
         repo.delete(ObjectMapper.parseObject(entity, Client.class));
     }

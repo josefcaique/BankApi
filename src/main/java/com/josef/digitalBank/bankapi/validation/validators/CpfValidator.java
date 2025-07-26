@@ -48,8 +48,6 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
             if (num == null) {
                 num = n+"";
             } else {
-                System.out.println(num);
-                System.out.println(n+"");
                 if (!(n+"").equals(num)) return false;
             }
         }
