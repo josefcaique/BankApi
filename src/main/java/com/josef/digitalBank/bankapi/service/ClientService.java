@@ -31,6 +31,7 @@ public class ClientService {
     }
 
     public ClientResponseDTO create(ClientRequestDTO client) {
+        client.setCpf(client.getCpf().replaceAll("[^\\d]", ""));
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }

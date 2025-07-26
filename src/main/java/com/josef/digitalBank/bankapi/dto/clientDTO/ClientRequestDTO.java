@@ -46,7 +46,7 @@ public class ClientRequestDTO implements Serializable {
     }
 
     public String getCpf() {
-        return cpf != null ? cpf.replace("[^\\d]", ""): null;
+        return cpf;
     }
 
     public void setCpf(String cpf) {
