@@ -1,6 +1,5 @@
 package com.josef.digitalBank.bankapi.exceptions.handler;
 
-import com.josef.digitalBank.bankapi.exceptions.CpfAlreadyExists;
 import com.josef.digitalBank.bankapi.exceptions.ExceptionResponse;
 import com.josef.digitalBank.bankapi.exceptions.FieldAlreadyExists;
 import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
