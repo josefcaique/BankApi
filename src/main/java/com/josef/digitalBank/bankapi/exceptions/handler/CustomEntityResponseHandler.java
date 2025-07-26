@@ -1,6 +1,8 @@
 package com.josef.digitalBank.bankapi.exceptions.handler;
 
+import com.josef.digitalBank.bankapi.exceptions.CpfAlreadyExists;
 import com.josef.digitalBank.bankapi.exceptions.ExceptionResponse;
+import com.josef.digitalBank.bankapi.exceptions.FieldAlreadyExists;
 import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,17 @@ public class CustomEntityResponseHandler {
         );
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FieldAlreadyExists.class)
+    public ResponseEntity<Object> handleCpfAlreadyExists(Exception e, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false)
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

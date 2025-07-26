@@ -45,6 +45,8 @@ public class ClientService {
         logger.info("Crating a new client");
 
         client.setCpf(client.getCpf().replaceAll("[^\\d]", ""));
+
+        
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }
