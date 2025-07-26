@@ -16,6 +16,7 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
     @Override
     public boolean isValid(String cpf, ConstraintValidatorContext constraintValidatorContext) {
         cpf = cpf.replaceAll("[^\\d]", "");
+        if (numberEquals(cpf)) return false;
         if (cpf.trim().length() != 11 ) return false;
         String subCpf = cpf.substring(0, 9);
         List<Character> subCpfList = new ArrayList<>(subCpf.chars().mapToObj(c -> (char) c).toList());
@@ -29,7 +30,6 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
 
     public int getNewDigit(List<Character> subCpfList) {
         int value = 0;
-
         for (int i=0; i<subCpfList.size(); i++) {
             char n = subCpfList.get(i);
             value += Character.getNumericValue(n) * (subCpfList.size()+1-i);
@@ -47,8 +47,11 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
         for (char n : cpf.toCharArray()) {
             if (num == null) {
                 num = n+"";
+            } else {
+                System.out.println(num);
+                System.out.println(n+"");
+                if (!(n+"").equals(num)) return false;
             }
-            if (n+"" != num) return false;
         }
         return true;
     }
