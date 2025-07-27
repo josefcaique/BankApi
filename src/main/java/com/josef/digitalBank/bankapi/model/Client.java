@@ -33,6 +33,7 @@ public class Client implements Serializable {
 
     public Client(){}
 
+
     public Long getId() {
         return id;
     }

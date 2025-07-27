@@ -29,6 +29,15 @@ public class ClientRequestDTO implements Serializable {
 
     public ClientRequestDTO(){}
 
+    public ClientRequestDTO(String name, String lastName, String cpf, String email, String password, LocalDate birthdate) {
+        this.name = name;
+        this.lastName = lastName;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
+        this.birthdate = birthdate;
+    }
+
     public String getName() {
         return name;
     }
@@ -41,7 +50,7 @@ public class ClientRequestDTO implements Serializable {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName() {
         this.lastName = lastName;
     }
 
