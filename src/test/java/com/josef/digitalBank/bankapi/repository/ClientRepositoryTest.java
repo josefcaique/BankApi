@@ -25,7 +25,7 @@ class ClientRepositoryTest {
 
     @BeforeEach
     void setupAll() {
-        ClientRequestDTO data = new ClientRequestDTO("Roberto", "Rocha", "31946973076", "roberto@email.com", "123456", LocalDate.now());
+        ClientRequestDTO data = new ClientRequestDTO("Roberto", "Rocha", "31946973076", "roberto@email.com", "123456", LocalDate.of(2000,1,1));
         createClient(data);
     }
 
@@ -42,6 +42,7 @@ class ClientRepositoryTest {
         assertEquals("31946973076", result.getCpf());
         assertEquals("roberto@email.com", result.getEmail());
         assertEquals("123456", result.getPassword());
+        assertEquals(LocalDate.of(2000,1,1), result.getBirthdate());
 
     }
 
@@ -65,6 +66,7 @@ class ClientRepositoryTest {
         assertEquals("31946973076", result.getCpf());
         assertEquals("roberto@email.com", result.getEmail());
         assertEquals("123456", result.getPassword());
+        assertEquals(LocalDate.of(2000,1,1), result.getBirthdate());
     }
 
     @Test
@@ -87,7 +89,7 @@ class ClientRepositoryTest {
         client.setEmail(data.getEmail());
         client.setPassword(data.getPassword());
 
-        this.entityManager.persist(client);
+        entityManager.persist(client);
         //return client;
     }
 }
