@@ -1,17 +1,15 @@
 package com.josef.digitalBank.bankapi.exceptions.handler;
 
 import com.josef.digitalBank.bankapi.exceptions.ExceptionResponse;
-import com.josef.digitalBank.bankapi.exceptions.FieldAlreadyExists;
 import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
+import com.josef.digitalBank.bankapi.exceptions.UserAlreadyExists;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -32,8 +30,8 @@ public class CustomEntityResponseHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(FieldAlreadyExists.class)
-    public ResponseEntity<Object> handleCpfAlreadyExists(Exception e, WebRequest request) {
+    @ExceptionHandler(UserAlreadyExists.class)
+    public ResponseEntity<Object> handleCpfUserAlreadyExists(Exception e, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 e.getMessage(),
@@ -44,13 +42,13 @@ public class CustomEntityResponseHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleValidationErrors(MethodArgumentNotValidException ex, WebRequest request) {
+    public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
-        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            errors.put(fieldError.getField(), fieldError.getField() + " is invalid!");
-        }
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
 
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(errors);
     }
 }

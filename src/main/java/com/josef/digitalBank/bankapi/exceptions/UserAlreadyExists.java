@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class FieldAlreadyExists extends RuntimeException {
-    public FieldAlreadyExists(String message) {
+public class UserAlreadyExists extends RuntimeException {
+    public UserAlreadyExists(String message) {
         super(message);
     }
 }

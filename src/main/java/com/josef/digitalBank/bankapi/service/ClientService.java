@@ -2,6 +2,7 @@ package com.josef.digitalBank.bankapi.service;
 
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientRequestDTO;
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientResponseDTO;
+import com.josef.digitalBank.bankapi.exceptions.UserAlreadyExists;
 import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
 import com.josef.digitalBank.bankapi.mapper.ObjectMapper;
 import com.josef.digitalBank.bankapi.model.Client;
@@ -46,7 +47,10 @@ public class ClientService {
 
         client.setCpf(client.getCpf().replaceAll("[^\\d]", ""));
 
-        
+
+        if (repo.findClientByCpf(client.getCpf()) != null) throw new UserAlreadyExists("There is already a client with that cpf");
+        if (repo.findClientByEmail(client.getEmail()) != null) throw new UserAlreadyExists("There is already a client with that cpf");
+
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
     }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name="clients")
+@Table(name="client")
 public class Client implements Serializable {
 
     @Serial
@@ -21,7 +21,11 @@ public class Client implements Serializable {
 
     private String name;
     private String lastName;
+
+    @Column(unique = true, nullable = false, length = 11)
     private String cpf;
+
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private LocalDate birthdate;
