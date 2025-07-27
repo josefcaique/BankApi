@@ -3,8 +3,7 @@ package com.josef.digitalBank.bankapi.repository;
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientRequestDTO;
 import com.josef.digitalBank.bankapi.model.Client;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,33 +23,62 @@ class ClientRepositoryTest {
     @Autowired
     EntityManager entityManager;
 
+    @BeforeEach
+    void setupAll() {
+        ClientRequestDTO data = new ClientRequestDTO("Roberto", "Rocha", "31946973076", "roberto@email.com", "123456", LocalDate.now());
+        createClient(data);
+    }
+
+
     @Test
-    @DisplayName("Should get client successfully from DB")
+    @DisplayName("Should get client by cpf successfully from DB")
     void findClientByCpfSuccess() {
-        String cpf = "46408483828";
-        ClientRequestDTO data = new ClientRequestDTO("Roberto", "Rocha", "46408483828", "jcaique10@gmail.com", "123456", LocalDate.now());
-        this.createClient(data);
-
+        String cpf = "31946973076";
         Client result = this.repository.findClientByCpf(cpf);
-        assertNotNull(result);
+
+        assertNotNull(result, "Expected client to be found, but got null");
+        assertEquals("Roberto", result.getName());
+        assertEquals("Rocha", result.getLastName());
+        assertEquals("31946973076", result.getCpf());
+        assertEquals("roberto@email.com", result.getEmail());
+        assertEquals("123456", result.getPassword());
+
     }
 
     @Test
-    @DisplayName("Should not get a client from db")
+    @DisplayName("Should not get a client by cpf from db")
     void findClientByCpfFail() {
-        String cpf = "46408483822";
-        ClientRequestDTO data = new ClientRequestDTO("Roberto", "Rocha", "31946973076", "jcaique1@gmail.com", "123456", LocalDate.now());
-        this.createClient(data);
-
+        String cpf = "31946973099";
         Client result = this.repository.findClientByCpf(cpf);
-        assertNull(result);
+        assertNull(result, "expected no client to be found, but found one");
     }
 
     @Test
-    void findClientByEmail() {
+    @DisplayName("Should get a client by email from db")
+    void findClientByEmailSuccess() {
+        String email = "roberto@email.com";
+        Client result = this.repository.findClientByEmail(email);
+
+        assertNotNull(result, "Expected client to be found, but got null");
+        assertEquals("Roberto", result.getName());
+        assertEquals("Rocha", result.getLastName());
+        assertEquals("31946973076", result.getCpf());
+        assertEquals("roberto@email.com", result.getEmail());
+        assertEquals("123456", result.getPassword());
     }
 
-    private Client createClient(ClientRequestDTO data) {
+    @Test
+    @DisplayName("Should not get a client by email from db")
+    void findClientByEmailFail() {
+        String email = "emailNotExist@gmail.com";
+        Client result = this.repository.findClientByEmail(email);
+        assertNull(result, "expected no client to be found, but found one");
+    }
+
+
+
+
+    private void createClient(ClientRequestDTO data) {
         Client client = new Client();
         client.setName(data.getName());
         client.setLastName(data.getLastName());
@@ -60,6 +88,6 @@ class ClientRepositoryTest {
         client.setPassword(data.getPassword());
 
         this.entityManager.persist(client);
-        return client;
+        //return client;
     }
 }
