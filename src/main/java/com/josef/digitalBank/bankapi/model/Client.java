@@ -6,11 +6,17 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="client")
-public class Client implements Serializable {
+public class Client implements UserDetails, Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -30,9 +36,41 @@ public class Client implements Serializable {
     private String password;
     private LocalDate birthdate;
 
+    private ClientRole role;
+
 
     public Client(){}
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (role == ClientRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     public Long getId() {
         return id;
