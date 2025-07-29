@@ -2,10 +2,12 @@ package com.josef.digitalBank.bankapi.controller;
 
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientRequestDTO;
 import com.josef.digitalBank.bankapi.dto.clientDTO.ClientResponseDTO;
+import com.josef.digitalBank.bankapi.model.Client;
 import com.josef.digitalBank.bankapi.service.ClientService;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidCPF;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class ClientController {
 
     @PostMapping()
     public ClientResponseDTO create(@Valid @RequestBody ClientRequestDTO client) {
+        String encryptedPassword = new BCryptPasswordEncoder().encode(client.getPassword());
+        client.setPassword(encryptedPassword);
         return service.create(client);
     }
 
