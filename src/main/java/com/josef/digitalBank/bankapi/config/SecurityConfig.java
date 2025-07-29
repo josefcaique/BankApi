@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth").permitAll()
                 )
                 .build();
+
     }
 
     @Bean
