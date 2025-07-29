@@ -1,6 +1,7 @@
 package com.josef.digitalBank.bankapi.dto.clientDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.josef.digitalBank.bankapi.model.ClientRole;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidCPF;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidEmail;
 
@@ -27,11 +28,11 @@ public class ClientRequestDTO implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
 
-    private String role;
+    private ClientRole role;
 
     public ClientRequestDTO(){}
 
-    public ClientRequestDTO(String name, String lastName, String cpf, String email, String password, LocalDate birthdate, String role) {
+    public ClientRequestDTO(String name, String lastName, String cpf, String email, String password, LocalDate birthdate, ClientRole role) {
         this.name = name;
         this.lastName = lastName;
         this.cpf = cpf;
@@ -89,11 +90,11 @@ public class ClientRequestDTO implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public String getRole() {
+    public ClientRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(ClientRole role) {
         this.role = role;
     }
 

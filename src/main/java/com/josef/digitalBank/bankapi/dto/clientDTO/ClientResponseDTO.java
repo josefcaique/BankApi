@@ -1,6 +1,7 @@
 package com.josef.digitalBank.bankapi.dto.clientDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.josef.digitalBank.bankapi.model.ClientRole;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ public class ClientResponseDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
 
-    private String role;
+    private ClientRole role;
 
     public ClientResponseDTO(){}
 
@@ -73,11 +74,11 @@ public class ClientResponseDTO implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public String getRole() {
+    public ClientRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(ClientRole role) {
         this.role = role;
     }
 
