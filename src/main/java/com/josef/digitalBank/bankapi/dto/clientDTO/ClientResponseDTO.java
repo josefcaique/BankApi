@@ -21,6 +21,8 @@ public class ClientResponseDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
 
+    private String role;
+
     public ClientResponseDTO(){}
 
     public Long getId() {
@@ -69,6 +71,14 @@ public class ClientResponseDTO implements Serializable {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

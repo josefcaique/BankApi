@@ -27,15 +27,18 @@ public class ClientRequestDTO implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
 
+    private String role;
+
     public ClientRequestDTO(){}
 
-    public ClientRequestDTO(String name, String lastName, String cpf, String email, String password, LocalDate birthdate) {
+    public ClientRequestDTO(String name, String lastName, String cpf, String email, String password, LocalDate birthdate, String role) {
         this.name = name;
         this.lastName = lastName;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
         this.birthdate = birthdate;
+        this.role = role;
     }
 
     public String getName() {
@@ -84,6 +87,14 @@ public class ClientRequestDTO implements Serializable {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
