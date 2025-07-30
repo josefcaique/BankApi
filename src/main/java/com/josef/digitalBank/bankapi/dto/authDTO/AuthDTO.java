@@ -1,4 +1,6 @@
 package com.josef.digitalBank.bankapi.dto.authDTO;
 
-public record AuthDTO(String login, String password) {
+import com.josef.digitalBank.bankapi.model.ClientRole;
+
+public record AuthDTO(String login, String password, ClientRole role) {
 }
