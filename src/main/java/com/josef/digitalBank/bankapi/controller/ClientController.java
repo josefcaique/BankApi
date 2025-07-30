@@ -34,7 +34,6 @@ public class ClientController {
     public ClientResponseDTO create(@Valid @RequestBody ClientRequestDTO client) {
         String encryptedPassword = new BCryptPasswordEncoder().encode(client.getPassword());
         client.setPassword(encryptedPassword);
-        System.out.println(client.getRole());
         return service.create(client);
     }
 

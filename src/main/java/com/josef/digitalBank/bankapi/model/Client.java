@@ -128,6 +128,14 @@ public class Client implements UserDetails, Serializable {
         this.birthdate = birthdate;
     }
 
+    public ClientRole getRole() {
+        return role;
+    }
+
+    public void setRole(ClientRole role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

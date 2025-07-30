@@ -52,7 +52,7 @@ public class ClientService implements UserDetailsService {
 
 
         if (repo.findClientByCpf(client.getCpf()) != null) throw new UserAlreadyExists("There is already a client with that cpf");
-        if (repo.findClientByEmail(client.getEmail()) != null) throw new UserAlreadyExists("There is already a client with that cpf");
+        if (repo.findClientByEmail(client.getEmail()) != null) throw new UserAlreadyExists("There is already a client with that email");
 
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
