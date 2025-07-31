@@ -18,3 +18,7 @@ server:
 logging:
   level:
     sl4j: INFO
+api:
+  security:
+    token:
+      secret:${JWT_SECRET:my-secret-key}
