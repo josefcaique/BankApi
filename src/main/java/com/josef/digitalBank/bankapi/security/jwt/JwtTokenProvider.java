@@ -1,6 +1,8 @@
 package com.josef.digitalBank.bankapi.security.jwt;
 
 import com.auth0.jwt.algorithms.Algorithm;
+import com.josef.digitalBank.bankapi.dto.authDTO.AuthDTO;
+import com.josef.digitalBank.bankapi.model.ClientRole;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class JwtTokenProvider {
@@ -29,4 +32,5 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
+    
 }

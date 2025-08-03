@@ -84,6 +84,6 @@ public class ClientService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var client = repo.findClientByEmail(username);
         if (client != null) return client;
-        else throw new ClientNotFoundException("There is no client with that email!");
+        else throw new UsernameNotFoundException("There is no client with that email!");
     }
 }
