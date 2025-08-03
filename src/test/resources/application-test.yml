@@ -7,6 +7,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
 security:
-  token:
-    secret-key: 53cr37
-    expire-length: 3600000
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-length: 3600000
