@@ -1,6 +1,7 @@
 package com.josef.digitalBank.bankapi.exceptions.handler;
 
 import com.josef.digitalBank.bankapi.exceptions.ExceptionResponse;
+import com.josef.digitalBank.bankapi.exceptions.InvalidJwtAuthenticationException;
 import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
 import com.josef.digitalBank.bankapi.exceptions.UserAlreadyExists;
 import org.springframework.http.HttpStatus;
@@ -50,5 +51,16 @@ public class CustomEntityResponseHandler {
         );
 
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public ResponseEntity<Object> handleInvalidJwtException(Exception e, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false)
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 }
