@@ -44,7 +44,7 @@ public class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
 
-    public TokenDTO createAccessToken(String username, Role role) {
+    public TokenDTO createAccessToken(String username, ClientRole role) {
         Date now = new Date();
         Date validty = new Date(now.getTime() + validityInMilliSeconds);
         String accessToken = getAccessToken(username, role, now, validty);
@@ -52,7 +52,7 @@ public class JwtTokenProvider {
         return new TokenDTO(username, true, now, validty, accessToken, refreshToken);
     }
 
-    private String getRefreshToken(String username, Role role, Date now) {
+    private String getRefreshToken(String username, ClientRole role, Date now) {
         Date refreshTokenValidity = new Date(now.getTime() + validityInMilliSeconds * 3);
         return JWT.create()
                 .withIssuedAt(now)
@@ -61,7 +61,7 @@ public class JwtTokenProvider {
                 .sign(algorithm);
     }
 
-    private String getAccessToken(String username, Role role, Date now, Date validty) {
+    private String getAccessToken(String username, ClientRole role, Date now, Date validty) {
         String issuerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         return JWT.create()
                 .withIssuedAt(now)
