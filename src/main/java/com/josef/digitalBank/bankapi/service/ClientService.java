@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,8 +26,8 @@ public class ClientService implements UserDetailsService {
     @Autowired
     ClientRepository repo;
 
-    public ClientResponseDTO findById(Long id) {
 
+    public ClientResponseDTO findById(Long id) {
         logger.info("Finding a client by Id");
 
         var entity =  repo.findById(id)
@@ -37,7 +37,6 @@ public class ClientService implements UserDetailsService {
     }
 
     public List<ClientResponseDTO> findAll() {
-
         logger.info("Finding all clients");
 
         List<Client> entities = repo.findAll();
@@ -49,10 +48,10 @@ public class ClientService implements UserDetailsService {
         logger.info("Crating a new client");
 
         client.setCpf(client.getCpf().replaceAll("[^\\d]", ""));
-
-
         if (repo.findClientByCpf(client.getCpf()) != null) throw new UserAlreadyExists("There is already a client with that cpf");
         if (repo.findClientByEmail(client.getEmail()) != null) throw new UserAlreadyExists("There is already a client with that email");
+
+
 
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);
