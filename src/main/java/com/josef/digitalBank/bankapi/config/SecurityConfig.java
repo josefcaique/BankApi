@@ -32,6 +32,8 @@ public class SecurityConfig {
         this.tokenProvider = jwtTokenProvider;
     }
 
+
+    /*
     @Bean
     PasswordEncoder passwordEncoder(){
         PasswordEncoder pbkdf2Enconder = new Pbkdf2PasswordEncoder(
@@ -45,6 +47,8 @@ public class SecurityConfig {
         passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Enconder);
         return passwordEncoder;
     }
+
+     */
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

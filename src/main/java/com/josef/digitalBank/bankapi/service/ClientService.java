@@ -27,6 +27,10 @@ public class ClientService implements UserDetailsService {
     ClientRepository repo;
 
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
     public ClientResponseDTO findById(Long id) {
         logger.info("Finding a client by Id");
 
@@ -51,7 +55,7 @@ public class ClientService implements UserDetailsService {
         if (repo.findClientByCpf(client.getCpf()) != null) throw new UserAlreadyExists("There is already a client with that cpf");
         if (repo.findClientByEmail(client.getEmail()) != null) throw new UserAlreadyExists("There is already a client with that email");
 
-
+        client.setPassword(passwordEncoder.encode(client.getPassword()));
 
         var entity = repo.save(ObjectMapper.parseObject(client, Client.class));
         return ObjectMapper.parseObject(entity, ClientResponseDTO.class);

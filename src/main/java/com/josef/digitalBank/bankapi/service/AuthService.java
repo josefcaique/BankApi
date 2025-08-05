@@ -41,7 +41,6 @@ public class AuthService {
         if (client == null) throw new UsernameNotFoundException("Username not found!");
 
         var token = tokenProvider.createAccessToken(dto.login(), dto.role());
-
         return ResponseEntity.ok(token);
     }
 
