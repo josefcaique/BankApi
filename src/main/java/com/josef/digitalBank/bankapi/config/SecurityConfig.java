@@ -2,11 +2,14 @@ package com.josef.digitalBank.bankapi.config;
 
 import com.josef.digitalBank.bankapi.security.jwt.JwtTokenFilter;
 import com.josef.digitalBank.bankapi.security.jwt.JwtTokenProvider;
+import com.josef.digitalBank.bankapi.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,27 +36,11 @@ public class SecurityConfig {
     }
 
 
-    /*
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        PasswordEncoder pbkdf2Enconder = new Pbkdf2PasswordEncoder(
-                "", 8, 185000,
-                Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
-
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put("pbkdf2", pbkdf2Enconder);
-        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
-
-        passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Enconder);
-        return passwordEncoder;
-    }
-
-     */
-
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -73,7 +60,7 @@ public class SecurityConfig {
 
                                 ).permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/client").permitAll()
-                                .requestMatchers("/api/client").denyAll()
+                                .requestMatchers("/api/client/**").authenticated()
                 )
                 .build();
     }
