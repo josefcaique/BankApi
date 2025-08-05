@@ -38,6 +38,7 @@ public class AuthService {
         );
 
         var client = repository.findClientByEmail(dto.login());
+        System.out.println(client);
         if (client == null) throw new UsernameNotFoundException("Username not found!");
 
         var token = tokenProvider.createAccessToken(dto.login(), dto.role());

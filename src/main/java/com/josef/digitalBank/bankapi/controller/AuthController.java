@@ -22,7 +22,6 @@ public class AuthController {
     @PostMapping(value = "/signin")
     public ResponseEntity<?> signin(@RequestBody AuthDTO authDTO) {
         if (credentialsNull(authDTO)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
-
         var token = service.signIn(authDTO);
         if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
         return ResponseEntity.ok().body(token);
