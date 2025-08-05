@@ -4,6 +4,8 @@ import com.josef.digitalBank.bankapi.dto.authDTO.AuthDTO;
 import com.josef.digitalBank.bankapi.dto.authDTO.TokenDTO;
 import com.josef.digitalBank.bankapi.repository.ClientRepository;
 import com.josef.digitalBank.bankapi.security.jwt.JwtTokenProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,7 +31,12 @@ public class AuthService {
     @Autowired
     ClientRepository repository;
 
+    final Logger logger = LoggerFactory.getLogger(ClientService.class);
+
     public ResponseEntity<TokenDTO> signIn(AuthDTO dto) {
+
+        logger.info("Logging a client!");
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         dto.login(),
