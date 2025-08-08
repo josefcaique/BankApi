@@ -10,6 +10,7 @@ import com.josef.digitalBank.bankapi.exceptions.InvalidJwtAuthenticationExceptio
 import com.josef.digitalBank.bankapi.model.ClientRole;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import org.antlr.v4.runtime.Token;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.management.relation.Role;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class JwtTokenProvider {
@@ -50,6 +52,21 @@ public class JwtTokenProvider {
         String accessToken = getAccessToken(username, role, now, validty);
         String refreshToken = getRefreshToken(username, role, now);
         return new TokenDTO(username, true, now, validty, accessToken, refreshToken);
+    }
+
+    public TokenDTO refreshToken(String refreshToken) {
+        if (refreshTokenContainsBearer(refreshToken)) refreshToken.substring("Bearer ".length());
+
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedJWT = verifier.verify(refreshToken);
+
+        String username = decodedJWT.getSubject();
+        ClientRole role = ClientRole.valueOf(decodedJWT.getClaim("role").asString());
+        return createAccessToken(username, role);
+    }
+
+    private static boolean refreshTokenContainsBearer(String refreshToken) {
+        return StringUtils.isNotBlank(refreshToken) && refreshToken.startsWith("Bearer ");
     }
 
     private String getRefreshToken(String username, ClientRole role, Date now) {
@@ -90,7 +107,7 @@ public class JwtTokenProvider {
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
 
-        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if (refreshTokenContainsBearer(bearerToken)) {
             return bearerToken.substring("Bearer ".length());
         }
         return null;
