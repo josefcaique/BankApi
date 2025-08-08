@@ -51,7 +51,7 @@ public class AuthService {
         return ResponseEntity.ok(token);
     }
 
-    public ResponseEntity<TokenDTO> sigIn(String username, String refreshToken) {
+    public ResponseEntity<TokenDTO> refreshToken(String username, String refreshToken) {
         var client = repository.findClientByEmail(username);
         if (client == null) throw new UsernameNotFoundException("Username not found!");
         TokenDTO token = tokenProvider.refreshToken(refreshToken);
