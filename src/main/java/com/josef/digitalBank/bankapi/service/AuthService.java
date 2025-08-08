@@ -45,10 +45,16 @@ public class AuthService {
         );
 
         var client = repository.findClientByEmail(dto.login());
-        System.out.println(client);
         if (client == null) throw new UsernameNotFoundException("Username not found!");
 
         var token = tokenProvider.createAccessToken(dto.login(), dto.role());
+        return ResponseEntity.ok(token);
+    }
+
+    public ResponseEntity<TokenDTO> sigIn(String username, String refreshToken) {
+        var client = repository.findClientByEmail(username);
+        if (client == null) throw new UsernameNotFoundException("Username not found!");
+        TokenDTO token = tokenProvider.refreshToken(refreshToken);
         return ResponseEntity.ok(token);
     }
 
