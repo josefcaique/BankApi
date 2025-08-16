@@ -31,7 +31,7 @@ public class AuthService {
     @Autowired
     ClientRepository repository;
 
-    final Logger logger = LoggerFactory.getLogger(ClientService.class);
+    final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
     public ResponseEntity<TokenDTO> signIn(AuthDTO dto) {
 
