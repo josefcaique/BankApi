@@ -1,9 +1,6 @@
 package com.josef.digitalBank.bankapi.exceptions.handler;
 
-import com.josef.digitalBank.bankapi.exceptions.ExceptionResponse;
-import com.josef.digitalBank.bankapi.exceptions.InvalidJwtAuthenticationException;
-import com.josef.digitalBank.bankapi.exceptions.ResourceNotFoundException;
-import com.josef.digitalBank.bankapi.exceptions.UserAlreadyExists;
+import com.josef.digitalBank.bankapi.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -58,6 +55,17 @@ public class CustomEntityResponseHandler {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 e.getMessage(),
+                request.getDescription(false)
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<Object> handleTokenExpiredException(Exception e, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                "Token has expired",
                 request.getDescription(false)
         );
 
