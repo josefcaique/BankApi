@@ -1,7 +1,6 @@
 package com.josef.digitalBank.bankapi.dto.clientDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.josef.digitalBank.bankapi.model.ClientRole;
 
 import java.io.Serial;
 import java.io.Serializable;

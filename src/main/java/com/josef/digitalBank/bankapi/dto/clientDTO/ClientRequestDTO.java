@@ -1,7 +1,6 @@
 package com.josef.digitalBank.bankapi.dto.clientDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.josef.digitalBank.bankapi.model.ClientRole;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidCPF;
 import com.josef.digitalBank.bankapi.validation.annotations.ValidEmail;
 

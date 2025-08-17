@@ -65,7 +65,7 @@ public class CustomEntityResponseHandler {
     public ResponseEntity<Object> handleTokenExpiredException(Exception e, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
-                "Token has expired",
+                e.getMessage(),
                 request.getDescription(false)
         );
 

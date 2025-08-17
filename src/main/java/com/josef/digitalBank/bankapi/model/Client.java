@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -36,15 +37,39 @@ public class Client implements UserDetails, Serializable {
     private String password;
     private LocalDate birthdate;
 
-    private ClientRole role;
 
+    @Column(name = "account_non_expired")
+    private Boolean accountNonExpired;
+
+    @Column(name = "account_non_locked")
+    private Boolean accountNonLocked;
+
+    @Column(name = "credentials_non_expired")
+    private Boolean credentialsNonExpired;
+
+    @Column(name = "enable")
+    private Boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "client_permission",
+            joinColumns = {@JoinColumn(name="id_user")},
+            inverseJoinColumns = {@JoinColumn(name = "id_permission")}
+    )
+    private List<Permission> permissions;
 
     public Client(){}
 
+    public List<String> getRoles(){
+        List<String> roles = new ArrayList<>();
+        for (Permission permission: permissions) {
+            roles.add(permission.getDescripition());
+        }
+        return roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (role == ClientRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return this.permissions;
     }
 
     @Override
@@ -54,22 +79,22 @@ public class Client implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.accountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return this.credentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 
     public Long getId() {
@@ -112,6 +137,7 @@ public class Client implements UserDetails, Serializable {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -128,13 +154,42 @@ public class Client implements UserDetails, Serializable {
         this.birthdate = birthdate;
     }
 
-    public ClientRole getRole() {
-        return role;
+    public Boolean getAccountNonExpired() {
+        return accountNonExpired;
     }
 
-    public void setRole(ClientRole role) {
-        this.role = role;
+    public void setAccountNonExpired(Boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
     }
+
+    public Boolean getAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(Boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public Boolean getCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
 
     @Override
     public boolean equals(Object o) {

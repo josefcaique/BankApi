@@ -4,13 +4,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.josef.digitalBank.bankapi.dto.authDTO.AuthDTO;
 import com.josef.digitalBank.bankapi.dto.authDTO.TokenDTO;
 import com.josef.digitalBank.bankapi.exceptions.InvalidJwtAuthenticationException;
-import com.josef.digitalBank.bankapi.model.ClientRole;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import org.antlr.v4.runtime.Token;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,10 +18,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.management.relation.Role;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class JwtTokenProvider {
