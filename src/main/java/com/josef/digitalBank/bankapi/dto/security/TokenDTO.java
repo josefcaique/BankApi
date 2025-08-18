@@ -12,7 +12,7 @@ public class TokenDTO implements Serializable {
     private Boolean authenticated;
     private Date created;
     private Date expiration;
-    private String acessToken;
+    private String accessToken;
     private String refreshToken;
 
     public TokenDTO(){}
@@ -22,7 +22,7 @@ public class TokenDTO implements Serializable {
         this.authenticated = authenticated;
         this.created = created;
         this.expiration = expiration;
-        this.acessToken = acessToken;
+        this.accessToken = acessToken;
         this.refreshToken = refreshToken;
     }
 
@@ -58,12 +58,12 @@ public class TokenDTO implements Serializable {
         this.expiration = expiration;
     }
 
-    public String getAcessToken() {
-        return acessToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAcessToken(String acessToken) {
-        this.acessToken = acessToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getRefreshToken() {
@@ -78,11 +78,11 @@ public class TokenDTO implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         TokenDTO tokenDTO = (TokenDTO) o;
-        return Objects.equals(username, tokenDTO.username) && Objects.equals(authenticated, tokenDTO.authenticated) && Objects.equals(created, tokenDTO.created) && Objects.equals(expiration, tokenDTO.expiration) && Objects.equals(acessToken, tokenDTO.acessToken) && Objects.equals(refreshToken, tokenDTO.refreshToken);
+        return Objects.equals(username, tokenDTO.username) && Objects.equals(authenticated, tokenDTO.authenticated) && Objects.equals(created, tokenDTO.created) && Objects.equals(expiration, tokenDTO.expiration) && Objects.equals(accessToken, tokenDTO.accessToken) && Objects.equals(refreshToken, tokenDTO.refreshToken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, authenticated, created, expiration, acessToken, refreshToken);
+        return Objects.hash(username, authenticated, created, expiration, accessToken, refreshToken);
     }
 }
