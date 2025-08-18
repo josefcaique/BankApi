@@ -26,10 +26,8 @@ public class ClientService implements UserDetailsService {
     @Autowired
     ClientRepository repo;
 
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     public ClientResponseDTO findById(Long id) {
         logger.info("Finding a client by Id");
